@@ -3,6 +3,7 @@ title: jsonp跨域请求的方法封装
 date: 2017-09-27 15:38
 tags: [js,jsonp]
 ---
+<!-- deleteAbove -->
 
 talk is cheap ,show me your code!
 

@@ -3,6 +3,7 @@ title: webpack配置各种loader
 date: 2017-11-07 10:57:49
 tags: [webpack]
 ---
+<!-- deleteAbove -->
 
 一些常见的 css ，js ，image 的loader配置。
 

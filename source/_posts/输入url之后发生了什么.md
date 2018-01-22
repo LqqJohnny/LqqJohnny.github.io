@@ -4,7 +4,7 @@ title: 输入url之后发生了什么
 date: 2017-09-28 16:25
 tags: [HTTP,url]
 ---
-
+<!-- deleteAbove -->
 **[转]**  这是关于http的一些基础知识，了解这些知识还是很有必要的。
 
 <!-- more -->

@@ -4,6 +4,7 @@ date: 2017-11-13 11:11:46
 tags: [hexo]
 categories: hexo
 ---
+<!-- deleteAbove -->
 ### hexo 设置canvas背景
 
 使用hexo 都会需要使用一个主题 theme ，不同的主题可能会内置不同的背景图片，

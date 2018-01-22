@@ -4,6 +4,7 @@ date: 2017-12-22 10:42:53
 tags: [solr,java]
 categories: solr
 ---
+<!-- deleteAbove -->
 
 紧接上条博客，加上 插入数据的代码。
 

@@ -3,6 +3,7 @@ title: js中的this
 date: 2017-09-28 13:52
 tags: [js,this]
 ---
+<!-- deleteAbove -->
 
 > this的指向，是在函数被调用的时候确定的，记住这句话有利于理解this
 

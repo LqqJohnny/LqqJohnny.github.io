@@ -4,6 +4,8 @@ date: 2017-12-22 10:01:07
 tags: [solr,java]
 categories: solr
 ---
+<!-- deleteAbove -->
+
 好久没写博客了 ，出差真是不太适合我这样的宅男。
 
 <!-- more -->

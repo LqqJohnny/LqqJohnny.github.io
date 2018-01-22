@@ -3,7 +3,7 @@ title: 虚拟节点VNode
 date: 2017-10-10 15:25
 tags: [vue,VNode,虚拟节点,问题]
 ---
-
+<!-- deleteAbove -->
 
 
 Virtual DOM （虚拟树） 大幅减少了DOM操作带来的重计算步骤。
