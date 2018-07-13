@@ -161,6 +161,4 @@ this.$store.state.b // -> moduleB 的状态
 ```
 
 
-
-
 > 参考 ： [vuex中文文档](https://vuex.vuejs.org/zh/)
