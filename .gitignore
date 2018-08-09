@@ -6,4 +6,4 @@ db.json
 node_modules/
 .npmignore
 public/
-theme/
+themes/
