@@ -3,7 +3,6 @@ title: 搭建一个类hexo博客框架
 categories: 杂
 date: 2018/2/1 上午9:50:32
 tags: [hexo]
-categories: hexo
 ---
 
 前段时间利用空闲时间，结合自己之前失败的经验以及一时的兴奋加上一丝幸运，成功的完成了一个博客框架。

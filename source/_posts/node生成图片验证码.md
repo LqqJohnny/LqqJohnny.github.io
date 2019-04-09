@@ -1,7 +1,6 @@
 ---
 title: node生成图片验证码
 date: 2018-02-23 11:38:30
-categories: node
 tags: [node,验证码]
 categories: node
 ---
