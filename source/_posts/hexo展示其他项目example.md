@@ -2,7 +2,7 @@
 title: hexo展示其他项目example
 date: 2018-02-01 17:12:46
 tags: [hexo]
-categories: hexo
+categories: 杂
 ---
 用过hexo的人可能会发现，在`github`上使用`gitpage`之后,其他项目就无法使用`gitpage`了，因为`github`限制了每个人智能开一个`gitpage`，但是水来土掩，换个方式，就可以解决这个问题了。
 

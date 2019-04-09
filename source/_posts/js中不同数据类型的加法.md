@@ -1,6 +1,7 @@
 ---
 title: js中不同数据类型的加法
 date: 2017-09-27 17:15
+categories: js
 tags: [js,数据类型]
 ---
 <!-- deleteAbove -->

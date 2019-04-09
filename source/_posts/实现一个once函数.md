@@ -1,7 +1,8 @@
 ---
 title: 实现一个once函数
+categories: js
 date: 2018-07-16 16:18:54
-tags: [js]
+tags: [once,闭包]
 ---
 经过once处理的函数，只能调用一次
 <!-- more -->

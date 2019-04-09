@@ -1,6 +1,7 @@
 ---
 title: Spring 视图重定向
 date: 2017/10/17 下午5:56:46
+categories: 后端
 tags: [Spring,重定向]
 ---
 <!-- deleteAbove -->

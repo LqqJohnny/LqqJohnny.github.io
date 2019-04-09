@@ -1,5 +1,6 @@
 ---
 title: 为什么js会阻塞页面渲染？
+categories: js
 date: 2018-07-24 14:31:23
 tags: [线程,js]
 ---

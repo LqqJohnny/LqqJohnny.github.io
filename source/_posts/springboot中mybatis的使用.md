@@ -1,6 +1,7 @@
 ---
 title: springboot中mybatis的使用
 date: 2018-08-07 19:21:49
+categories: 后端
 tags: [springboot,mybatis]
 ---
 

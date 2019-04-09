@@ -1,5 +1,6 @@
 ---
 title: for..in..和 for..of..的区别
+categories: js
 date: 2018-04-10 14:49:11
 tags: [js,for循环]
 ---

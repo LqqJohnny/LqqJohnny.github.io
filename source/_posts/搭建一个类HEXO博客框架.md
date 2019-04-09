@@ -1,5 +1,6 @@
 ---
 title: 搭建一个类hexo博客框架
+categories: 杂
 date: 2018/2/1 上午9:50:32
 tags: [hexo]
 categories: hexo

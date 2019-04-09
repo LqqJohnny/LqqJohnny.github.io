@@ -1,6 +1,7 @@
 ---
 title: html转图片或PDF
 date: 2018-03-05 13:55:43
+categories: js
 tags: [node,pdf]
 ---
 

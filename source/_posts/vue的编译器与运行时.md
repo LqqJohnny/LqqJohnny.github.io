@@ -1,5 +1,6 @@
 ---
 title: vue的编译器与运行时
+categories: vue
 date: 2018-08-16 10:56:07
 tags: [vue,complier,runtime]
 ---

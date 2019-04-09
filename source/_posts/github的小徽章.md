@@ -1,5 +1,6 @@
 ---
 title: github的小徽章
+categories: 杂
 date: 2018-02-09 10:46:44
 tags: github
 ---

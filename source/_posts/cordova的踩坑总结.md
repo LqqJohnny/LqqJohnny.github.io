@@ -1,5 +1,6 @@
 ---
 title: cordova的踩坑总结
+categories: 移动端
 date: 2018-03-23 15:26:44
 tags: [cordova,app,移动端]
 ---

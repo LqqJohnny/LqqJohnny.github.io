@@ -1,6 +1,7 @@
 ---
 title: vue中slot的使用
 date: 2019-04-09 11:58:28
+categories: vue
 tags: [vue,slot]
 ---
 参考： https://segmentfault.com/a/1190000013277423

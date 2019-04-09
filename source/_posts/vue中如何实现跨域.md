@@ -1,6 +1,7 @@
 ---
 title: vue中如何实现跨域
 date: 2018-08-14 13:07:33
+categories: vue
 tags: [vue,跨域]
 ---
 

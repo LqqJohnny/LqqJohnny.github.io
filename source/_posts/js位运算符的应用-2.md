@@ -1,6 +1,7 @@
 ---
 title: js位运算符的应用-2
 date: 2018-04-13 09:31:28
+categories: js
 tags: [js,位运算符]
 ---
 

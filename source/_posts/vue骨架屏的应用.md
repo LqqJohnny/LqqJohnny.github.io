@@ -1,5 +1,6 @@
 ---
 title: vue骨架屏的应用
+categories: vue
 date: 2018-07-12 14:40:13
 tags: [vue,骨架屏]
 ---

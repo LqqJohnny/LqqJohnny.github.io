@@ -1,5 +1,6 @@
 ---
 title: 'js中的浅复制和深复制'
+categories: js
 date: 2017-10-26 17:11:18
 tags: [js,深复制,浅复制]
 ---

@@ -1,5 +1,6 @@
 ---
 title: vue深入响应式原理
+categories: vue
 date: 2017-10-9 15:23
 tags: [vue,响应式,问题]
 ---

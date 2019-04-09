@@ -1,5 +1,6 @@
 ---
 title: 如何在vue-router中做路由权限控制
+categories: vue
 date: 2018-02-25 10:16:32
 tags: [vue,权限控制]
 ---

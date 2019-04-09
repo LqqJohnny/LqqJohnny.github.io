@@ -2,7 +2,7 @@
 title: solr的简单使用-插入
 date: 2017-12-22 10:42:53
 tags: [solr,java]
-categories: solr
+categories: 后端
 ---
 <!-- deleteAbove -->
 

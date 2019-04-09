@@ -1,5 +1,6 @@
 ---
 title: 用二分法实现indexOf
+categories: js
 date: 2018-07-06 13:41:10
 tags: [二分法,算法,面试]
 ---

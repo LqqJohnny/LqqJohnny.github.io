@@ -1,6 +1,7 @@
 ---
 title: js原型链prototype和__proto__
 date: 2018-07-20 13:40:40
+categories: js
 tags: [js,原型链,prototype]
 ---
 

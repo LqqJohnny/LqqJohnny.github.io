@@ -1,6 +1,7 @@
 ---
 title: js位运算符的妙用-1
 date: 2018-04-12 14:28:56
+categories: js
 tags: [js,位运算符]
 ---
 

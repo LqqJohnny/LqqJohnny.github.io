@@ -1,6 +1,7 @@
 ---
 title: js中的this
 date: 2017-09-28 13:52
+categories: js
 tags: [js,this]
 ---
 <!-- deleteAbove -->

@@ -1,5 +1,6 @@
 ---
 title: vue覆盖组件样式-深度选择器
+categories: vue
 date: 2018-07-11 14:55:56
 tags: [vue,深度选择器]
 ---

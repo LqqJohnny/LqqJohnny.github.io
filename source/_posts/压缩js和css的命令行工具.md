@@ -1,5 +1,6 @@
 ---
 title: 压缩js和css的命令行工具
+categories: js
 date: 2018-02-05 15:02:51
 tags: [js]
 ---

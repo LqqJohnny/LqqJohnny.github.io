@@ -1,5 +1,6 @@
 ---
 title: 虚拟节点VNode
+categories: vue
 date: 2017-10-10 15:25
 tags: [vue,VNode,虚拟节点,问题]
 ---

@@ -1,5 +1,6 @@
 ---
 layout: blog
+categories: js
 title: 知乎复制粘贴自带版权信息的js代码
 date: 2018-01-22 10:52:11
 tags: js

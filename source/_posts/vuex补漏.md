@@ -1,6 +1,7 @@
 ---
 title: vuex补漏
 date: 2018-07-13 10:16:50
+categories: vue
 tags: [vue,vuex]
 ---
 

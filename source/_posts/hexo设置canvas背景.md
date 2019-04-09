@@ -2,7 +2,7 @@
 title: hexo设置canvas背景
 date: 2017-11-13 11:11:46
 tags: [hexo]
-categories: hexo
+categories: 杂
 ---
 <!-- deleteAbove -->
 ### hexo 设置canvas背景

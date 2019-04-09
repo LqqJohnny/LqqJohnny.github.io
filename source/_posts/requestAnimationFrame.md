@@ -1,6 +1,7 @@
 ---
 title: requestAnimationFrame
 date: 2018-03-06 10:39:05
+categories: js
 tags: [requestAnimationFrame,动画]
 ---
 
