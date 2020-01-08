@@ -15,7 +15,8 @@ avatar: https://raw.githubusercontent.com/LqqJohnny/LqqJohnny.github.io/blog/sou
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
 url: http://yoursite.com
-root: /LqqJohnny.github.io
+# root: /LqqJohnny.github.io
+root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
 
