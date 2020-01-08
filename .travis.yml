@@ -10,7 +10,14 @@ script:
 - hexo g
 addons:
   ssh_known_hosts: 106.54.69.121
+# 缓存，可以节省集成的时间，这里我用了yarn，如果不用可以删除
+cache:
+  apt: true
+      directories:
+          - node_modules
 before_install:
+- git config --global user.name "Godi13"
+- git config --global user.email "mqzq9388@gmail.com"
 - openssl aes-256-cbc -K $encrypted_0fe679bc9ce6_key -iv $encrypted_0fe679bc9ce6_iv
   -in id_rsa.enc -out ~\/.ssh/id_rsa -d
 - chmod 600 ~/.ssh/id_rsa
