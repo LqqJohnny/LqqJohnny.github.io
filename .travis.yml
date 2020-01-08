@@ -9,11 +9,10 @@ install:
 script:
 - hexo g
 addons:
-  ssh_known_hosts:
-  - 106.54.69.121
+  ssh_known_hosts: 106.54.69.121
 before_install:
 - openssl aes-256-cbc -K $encrypted_0fe679bc9ce6_key -iv $encrypted_0fe679bc9ce6_iv
   -in id_rsa.enc -out ~\/.ssh/id_rsa -d
-after_success:
 - chmod 600 ~/.ssh/id_rsa
-- ssh blog@139.199.90.74 -o StrictHostKeyChecking=no 'cd /usr/local/webserver/nginx/html/LqqJohnny.github.io && git pull && hexo g -d'
+after_success:
+- ssh travis@106.54.69.121 -o StrictHostKeyChecking=no 'cd /usr/local/webserver/nginx/html/LqqJohnny.github.io && git pull && hexo g -d'
