@@ -19,7 +19,7 @@ before_install:
 - git config --global user.name "Godi13"
 - git config --global user.email "mqzq9388@gmail.com"
 - openssl aes-256-cbc -K $encrypted_0fe679bc9ce6_key -iv $encrypted_0fe679bc9ce6_iv
-  -in id_rsa.enc -out ~\/.ssh/id_rsa -d
+  -in id_rsa.enc -out ~/.ssh/id_rsa -d
 - chmod 600 ~/.ssh/id_rsa
 after_success:
 - ssh travis@106.54.69.121 -o StrictHostKeyChecking=no 'cd /usr/local/webserver/nginx/html/LqqJohnny.github.io && git pull && hexo g -d'
