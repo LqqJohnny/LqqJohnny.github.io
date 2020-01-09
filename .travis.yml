@@ -25,7 +25,7 @@ script:
 - hexo clean
 - hexo generate
 after_success:
-- rsync -rv --delete -e 'ssh -o stricthostkeychecking=no -p 1022' public/ travis@106.54.69.121:/usr/local/webserver/nginx/html/hexoblog
+- rsync -rv --delete -e 'ssh -o stricthostkeychecking=no' public/ travis@106.54.69.121:/usr/local/webserver/nginx/html/hexoblog
 - cd ./public
 - git init
 - git add --all .
