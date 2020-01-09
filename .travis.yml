@@ -17,7 +17,6 @@ before_install:
 - npm install -g hexo-cli
 install:
 - npm i 
-- git clone https://github.com/iissnan/hexo-theme-next themes/next
 script:
 - hexo clean
 - hexo generate
