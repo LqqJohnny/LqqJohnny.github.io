@@ -3,14 +3,14 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: 199
-subtitle: 路漫漫其修远兮，我将上下而求索
-description: 兔子家的先生
+title: '199'
+subtitle: '路漫漫其修远兮，我将上下而求索'
+description: '兔子家的先生'
 author: LqqJohnny
 language: zh-Hans
 timezone:
 
-avatar: https://raw.githubusercontent.com/LqqJohnny/LqqJohnny.github.io/blog/source/me.png
+# avatar: https://raw.githubusercontent.com/LqqJohnny/LqqJohnny.github.io/blog/source/me.png
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
@@ -81,7 +81,7 @@ pagination_dir: page
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: hexo-theme-next
+theme: next
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html

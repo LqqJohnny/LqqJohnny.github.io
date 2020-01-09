@@ -6,7 +6,6 @@ node_js: stable
 branches:
   only:
   - blog
-# 缓存，可以节省集成的时间，这里我用了yarn，如果不用可以删除
 cache:
   apt: true
   directories:
@@ -15,10 +14,10 @@ cache:
 before_install:
 - git config --global user.name "LqqJohnny"
 - git config --global user.email "1277601297@qq.com"
-# 由于使用了yarn，所以需要下载，如不用yarn这两行可以删除
 - npm install -g hexo-cli
 install:
 - npm i 
+- git clone https://github.com/iissnan/hexo-theme-next themes/next
 script:
 - hexo clean
 - hexo generate
