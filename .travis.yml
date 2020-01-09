@@ -12,6 +12,10 @@ cache:
     - node_modules
 # tarvis生命周期执行顺序详见官网文档
 before_install:
+- openssl aes-256-cbc -K $encrypted_0fe679bc9ce6_key -iv $encrypted_0fe679bc9ce6_iv
+  -in id_rsa.enc -out ~/.ssh/id_rsa -d
+- chmod 600 ~/.ssh/id_rsa
+- echo -e "Host 106.54.69.121\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
 - git config --global user.name "LqqJohnny"
 - git config --global user.email "1277601297@qq.com"
 - npm install -g hexo-cli
@@ -21,6 +25,7 @@ script:
 - hexo clean
 - hexo generate
 after_success:
+- rsync -rv --delete -e 'ssh -o stricthostkeychecking=no -p 1022' public/ root@106.54.69.121:/usr/local/webserver/nginx/html/hexoblog
 - cd ./public
 - git init
 - git add --all .
