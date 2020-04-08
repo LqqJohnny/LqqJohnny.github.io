@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="cordova,app,移动端," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="头铁的我再猜了无数坑之后，打算总结一下">
+<meta name="keywords" content="cordova,app,移动端">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cordova的踩坑总结">
+<meta property="og:url" content="http://yoursite.com/2018/03/23/cordova的踩坑总结/index.html">
+<meta property="og:site_name" content="199">
+<meta property="og:description" content="头铁的我再猜了无数坑之后，打算总结一下">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-04-08T07:54:03.757Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="cordova的踩坑总结">
+<meta name="twitter:description" content="头铁的我再猜了无数坑之后，打算总结一下">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/03/23/cordova的踩坑总结/"/>
+
+
+
+
+
+  <title>cordova的踩坑总结 | 199</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">199</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">路漫漫其修远兮，我将上下而求索</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/23/cordova的踩坑总结/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="LqqJohnny">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="199">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">cordova的踩坑总结</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-23T15:26:44+00:00">
+                2018-03-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/移动端/" itemprop="url" rel="index">
+                    <span itemprop="name">移动端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>头铁的我再猜了无数坑之后，打算总结一下</p>
+<a id="more"></a>
+<h2 id="cordova"><a href="#cordova" class="headerlink" title="cordova"></a>cordova</h2><p><a href="http://cordova.apache.org/" target="_blank" rel="noopener">cordova</a> 是一个 apach 发布的用于跨平台开发的平台。</p>
+<p>cordova 提供了很多原生功能 ，如 相机，麦克风等 具体看<a href="http://cordova.apache.org/docs/en/latest/reference/cordova-plugin-battery-status/index.html" target="_blank" rel="noopener">官方文档</a></p>
+<p>当然还有很多插件可供使用 ： <a href="http://cordova.apache.org/plugins/" target="_blank" rel="noopener">插件列表</a><br>、<a href="http://www.hangge.com/blog/cache/detail_1158.html" target="_blank" rel="noopener">常用插件</a></p>
+<h3 id="踩坑Start！"><a href="#踩坑Start！" class="headerlink" title="踩坑Start！"></a>踩坑Start！</h3><p>接下来直接开始创建 一个 cordova 项目</p>
+<h4 id="安装cordova"><a href="#安装cordova" class="headerlink" title="安装cordova"></a>安装cordova</h4><ul>
+<li><p>npm 安装</p>
+<p>  使用 npm 全局安装好 cordova ，<code>npm install cordova -g</code></p>
+</li>
+<li><p>yarn 安装<br>  也是全局安装 <code>yarn global add cordova</code><br>  （安装完之后，如果运行 cordova 指令不存在，加一个path环境变量，例: <code>C:\Users\lqq\AppData\Local\Yarn\bin</code> ）</p>
+</li>
+</ul>
+<blockquote>
+<p>注意： 由于npm版本的问题 cordova 在后面创建项目时可能会报错 ， 若遇到，可换成 yarn 安装,在加上环境变量即可</p>
+</blockquote>
+<h4 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h4><p>一般创建项目可以直接 <code>cordova create projectName</code></p>
+<p>但是，在创建的时候可以指定<strong>模板</strong>， 可以为以后的开发省下很多事。</p>
+<p>以我之前写的项目为例 ，使用的模板是 ： <a href="https://github.com/caiobiodere/cordova-template-framework7-vue-webpack" target="_blank" rel="noopener">cordova-template-framework7-vue-webpack</a></p>
+<p>就是 cordova + f7 + vue +webpack , f7 相当于是一个组件库<br>当然还有很多其他的模板 ，之后补充。</p>
+<p>创建步骤：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#指定模板</span></span><br><span class="line">cordova create example com.example.app example  --template cordova-template-framework7-vue-webpack</span><br></pre></td></tr></table></figure>
+<p>这样就创建完成了！</p>
+<h4 id="运行项目"><a href="#运行项目" class="headerlink" title="运行项目"></a>运行项目</h4><p>运行的指令是  <code>cordova run browser</code> 这个 browser 表示运行在浏览器 ，如果连接了手机或者模拟器 可以换成 ios 或者 android</p>
+<p>不过首先需要添加 平台（platform）支持</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 添加平台 根据需要添加</span></span><br><span class="line">cordova platform add browser [,ios] [,android]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 运行 -- --lr可实时更新修改的文件  live-reload的缩写</span></span><br><span class="line">cordova run browser -- --lr</span><br></pre></td></tr></table></figure>
+<p>添加 platform 这一步可能比较久 因为要安装一些 依赖 ，使用的 npm 当然会比较慢了，不过也有办法 ，把npm的默认资源地址 换成 淘宝镜像地址，或者使用这个 <a href="https://github.com/Pana/nrm" target="_blank" rel="noopener">nrm</a> 来快速切换资源地址。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">nrm ls</span><br><span class="line"></span><br><span class="line">    * npm -----  https://registry.npmjs.org/</span><br><span class="line">      cnpm ----  http://r.cnpmjs.org/</span><br><span class="line">      taobao --  https://registry.npm.taobao.org/</span><br><span class="line">      nj ------  https://registry.nodejitsu.com/</span><br><span class="line">      rednpm -- http://registry.mirror.cqupt.edu.cn</span><br><span class="line">      skimdb -- https://skimdb.npmjs.com/registry</span><br><span class="line"></span><br><span class="line">nrm use taobao</span><br><span class="line"></span><br><span class="line">    Registry has been <span class="built_in">set</span> to: https://registry.npm.taobao.org/</span><br></pre></td></tr></table></figure>
+<p>好了 现在项目应该运行起来了，看到的是一个 简单的demo页面 ， ，接下来就可以熟悉下<a href="https://github.com/caiobiodere/cordova-template-framework7-vue-webpack#features" target="_blank" rel="noopener">项目结构</a> 然后开始开发了。</p>
+<h4 id="添加插件"><a href="#添加插件" class="headerlink" title="添加插件"></a>添加插件</h4><p>查看插件列表： <code>cordova plugin ls</code></p>
+<p>添加插件 ： <code>cordova plugin add cordova-plugin-camera</code></p>
+<p>删除插件 ： <code>cordova plugin rm cordova-plugin-camera</code></p>
+<p>更新插件： <code>cordova plugin update</code></p>
+<p><a href="http://cordova.apache.org/plugins/" target="_blank" rel="noopener">插件列表</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/cordova/" rel="tag"># cordova</a>
+          
+            <a href="/tags/app/" rel="tag"># app</a>
+          
+            <a href="/tags/移动端/" rel="tag"># 移动端</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/06/requestAnimationFrame/" rel="next" title="requestAnimationFrame">
+                <i class="fa fa-chevron-left"></i> requestAnimationFrame
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/04/10/for-in-和for-of/" rel="prev" title="for..in..和 for..of..的区别">
+                for..in..和 for..of..的区别 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">LqqJohnny</p>
+              <p class="site-description motion-element" itemprop="description">兔子家的先生</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">49</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">60</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#cordova"><span class="nav-number">1.</span> <span class="nav-text">cordova</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#踩坑Start！"><span class="nav-number">1.1.</span> <span class="nav-text">踩坑Start！</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#安装cordova"><span class="nav-number">1.1.1.</span> <span class="nav-text">安装cordova</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#创建项目"><span class="nav-number">1.1.2.</span> <span class="nav-text">创建项目</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#运行项目"><span class="nav-number">1.1.3.</span> <span class="nav-text">运行项目</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#添加插件"><span class="nav-number">1.1.4.</span> <span class="nav-text">添加插件</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LqqJohnny</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

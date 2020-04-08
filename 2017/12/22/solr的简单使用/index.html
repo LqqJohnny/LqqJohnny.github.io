@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="solr,java," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="好久没写博客了 ，出差真是不太适合我这样的宅男。">
+<meta name="keywords" content="solr,java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="solr的简单使用-查询">
+<meta property="og:url" content="http://yoursite.com/2017/12/22/solr的简单使用/index.html">
+<meta property="og:site_name" content="199">
+<meta property="og:description" content="好久没写博客了 ，出差真是不太适合我这样的宅男。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-04-08T07:54:03.757Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="solr的简单使用-查询">
+<meta name="twitter:description" content="好久没写博客了 ，出差真是不太适合我这样的宅男。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/12/22/solr的简单使用/"/>
+
+
+
+
+
+  <title>solr的简单使用-查询 | 199</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">199</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">路漫漫其修远兮，我将上下而求索</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/22/solr的简单使用/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="LqqJohnny">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="199">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">solr的简单使用-查询</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-22T10:01:07+00:00">
+                2017-12-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/后端/" itemprop="url" rel="index">
+                    <span itemprop="name">后端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <!-- deleteAbove -->
+<p>好久没写博客了 ，出差真是不太适合我这样的宅男。</p>
+<a id="more"></a>
+<h3 id="Start"><a href="#Start" class="headerlink" title="Start"></a>Start</h3><p>前几天公司要写一个独立的 LBS 服务，用于另一个项目，Location Based Service  基于位置服务，提供地理位置信息，目前的需求是 ：</p>
+<ol>
+<li>根据名字获取地点坐标</li>
+<li>获取坐标周围的地点信息</li>
+</ol>
+<p>地理位置信息量一共有1500多万条，这还是我第一次接触到这么多的数据，最终选择了用solr来存取，因为 solr 可以很方便的用来获取某个地点附近地点查找 和范围查找等。</p>
+<p>对于没接触过solr的我来说 ，这也是一个挑战了 ， 网上能找到的 教程或者文档 还是很少的，因此只能一点点的看官方英文文档了。</p>
+<p>还是一如既往的选择了 spring 公司目前的项目也全都是用它 ，所以也没有其他选择了。</p>
+<h4 id="solr的基本使用"><a href="#solr的基本使用" class="headerlink" title="solr的基本使用"></a>solr的基本使用</h4><p>首先，在pom中加入这两个 jar包,solrj 的版本如果是6以上的话可能会遇到报错：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.data<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-data-solr<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>2.1.3.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.solr<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>solr-solrj<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>5.5.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>然后，配置 application.xml：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 加载solr的属性配置文件 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">context:property-placeholder</span> <span class="attr">location</span>=<span class="string">"classpath:solr.properties"</span> <span class="attr">ignore-unresolvable</span>=<span class="string">"true"</span>/&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- spring连接solr查询company数据库的配置 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">solr:solr-client</span> <span class="attr">id</span>=<span class="string">"geoQuery"</span> <span class="attr">url</span>=<span class="string">"$&#123;solr.geoSearchUrl&#125;"</span>/&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">solr:repositories</span> <span class="attr">base-package</span>=<span class="string">"com.lqqppl.solr.impl"</span> <span class="attr">solr-template-ref</span>=<span class="string">"geoQueryTemplate"</span>/&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"geoQueryTemplate"</span> <span class="attr">class</span>=<span class="string">"org.springframework.data.solr.core.SolrTemplate"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">index</span>=<span class="string">"0"</span> <span class="attr">ref</span>=<span class="string">"geoQuery"</span>&gt;</span><span class="tag">&lt;/<span class="name">constructor-arg</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>还有上面配置里需要的  solr.properties<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">solr.geoSearchUrl=http://ip:port/solr/</span><br></pre></td></tr></table></figure></p>
+<p>尝试过把solr里对应的库民直接在这指定 但是会报错，原因还没找到，所以只能在代码里指定库名。</p>
+<p>接下来我写了一个 test测试类 来测试 solr的 模糊搜索和附近地点搜索：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestQuerySolr</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		ApplicationContext ac = <span class="keyword">new</span> ClassPathXmlApplicationContext(<span class="string">"applicationContext.xml"</span>);</span><br><span class="line">	    SolrTemplate geoQueryTemplate= (SolrTemplate) ac.getBean(<span class="string">"geoQueryTemplate"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//	    query(geoQueryTemplate);</span></span><br><span class="line"></span><br><span class="line">	    near(geoQueryTemplate);</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">query</span><span class="params">(SolrTemplate geoQueryTemplate)</span></span>&#123;</span><br><span class="line"></span><br><span class="line">		Criteria criteria = <span class="keyword">new</span> Criteria(<span class="string">"name"</span>);</span><br><span class="line">		criteria.is(<span class="string">"lqqppl"</span>);  <span class="comment">// 相当于 where name = 'lqqppl'</span></span><br><span class="line"></span><br><span class="line">	    SimpleQuery query = <span class="keyword">new</span> SimpleQuery();</span><br><span class="line">	    query.addCriteria(criteria);</span><br><span class="line">	    System.out.println(geoQueryTemplate.queryForPage(<span class="string">"geo"</span>,query,GeoPosition.class).getContent().get(<span class="number">0</span>).getLocation());</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">near</span><span class="params">(SolrTemplate geoQueryTemplate)</span></span>&#123;</span><br><span class="line">		SimpleQuery query = <span class="keyword">new</span> SimpleQuery(<span class="string">"*:*"</span>);</span><br><span class="line">		FilterQuery fq = <span class="keyword">new</span> SimpleFilterQuery(<span class="keyword">new</span> Criteria(<span class="string">"location"</span>)</span><br><span class="line">				  .near(<span class="keyword">new</span> Point(<span class="number">45.6504795</span>,-<span class="number">111.0502501</span>), <span class="keyword">new</span> Distance(<span class="number">5</span>)));</span><br><span class="line">		query.addFilterQuery(fq);</span><br><span class="line"><span class="comment">//		query.addSort(new Sort(Direction.ASC,"category"));</span></span><br><span class="line"><span class="comment">//		query.addGroupByField("category");</span></span><br><span class="line"><span class="comment">//		query.setOffset(10);</span></span><br><span class="line"><span class="comment">//		query.setRows(20);  //  设置 返回的数量的长度</span></span><br><span class="line">		Page&lt;GeoPosition&gt; res = geoQueryTemplate.queryForPage(<span class="string">"geo"</span>, query, GeoPosition.class);</span><br><span class="line">		System.out.println(JSONArray.fromObject(res.getContent()));</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在查询中还可以给query 添加很多筛选条件  排序、groupBy、分页等功能。</p>
+<h4 id="SimpleQuery-和-SimpleFilterQuery-的区别："><a href="#SimpleQuery-和-SimpleFilterQuery-的区别：" class="headerlink" title="SimpleQuery 和 SimpleFilterQuery 的区别："></a>SimpleQuery 和 SimpleFilterQuery 的区别：</h4><p>SimpleQuery一般用于固定的条件 如 type=1;<br>SimpleFilterQuery一般用于参数变化的 筛选 ，如传进了一个参数 name，要选出 username= name 的 那就用 SimpleFilterQuery。</p>
+<h3 id="END"><a href="#END" class="headerlink" title="END"></a>END</h3><p>最后 ，给出一些最近找到的一些 solr关于 LBS 方面的文章与文档：</p>
+<blockquote>
+<p>文章</p>
+</blockquote>
+<p><a href="http://itindex.net/detail/41691-solr-%E7%A9%BA%E9%97%B4-%E6%90%9C%E7%B4%A2" target="_blank" rel="noopener">基于Solr的控件搜索</a><br><a href="http://blog.csdn.net/awj3584/article/details/11760757" target="_blank" rel="noopener">solr空间搜索实现附近酒店的搜索</a><br><a href="http://blog.csdn.net/likemebee/article/details/78469002" target="_blank" rel="noopener">如何使用Spring Data Solr搜索引擎进行开发</a><br><a href="https://www.ibm.com/developerworks/cn/java/j-spatial/" target="_blank" rel="noopener">使用 Apache Lucene 和 Solr 进行位置感知搜索</a></p>
+<blockquote>
+<p>文档</p>
+</blockquote>
+<p><a href="https://wiki.apache.org/solr/Solrj" target="_blank" rel="noopener">Solr Wiki Solrj</a><br><a href="https://docs.spring.io/spring-data/solr/docs/2.1.3.RELEASE/api/" target="_blank" rel="noopener">Spring Data Solr</a><br><a href="https://docs.spring.io/spring-data/solr/docs/3.0.2.RELEASE/reference/html/" target="_blank" rel="noopener">Spring Data for Apache Solr</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/solr/" rel="tag"># solr</a>
+          
+            <a href="/tags/java/" rel="tag"># java</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/11/13/hexo设置canvas背景/" rel="next" title="hexo设置canvas背景">
+                <i class="fa fa-chevron-left"></i> hexo设置canvas背景
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/12/22/solr的简单使用-插入/" rel="prev" title="solr的简单使用-插入">
+                solr的简单使用-插入 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">LqqJohnny</p>
+              <p class="site-description motion-element" itemprop="description">兔子家的先生</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">49</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">60</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Start"><span class="nav-number">1.</span> <span class="nav-text">Start</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#solr的基本使用"><span class="nav-number">1.1.</span> <span class="nav-text">solr的基本使用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SimpleQuery-和-SimpleFilterQuery-的区别："><span class="nav-number">1.2.</span> <span class="nav-text">SimpleQuery 和 SimpleFilterQuery 的区别：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#END"><span class="nav-number">2.</span> <span class="nav-text">END</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LqqJohnny</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

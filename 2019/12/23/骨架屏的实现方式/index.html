@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="骨架屏的实现方式 1.vue骨架屏在开发vue项目时，在请求接口数据返回之前，使用一个loading图标表示加载中；进一步可以使用骨架屏代替loading图标，给用户更好的使用体验。 用一个flag标志，来表示请求接口是否已经完成，来控制骨架屏的显示与否。 123优点： 定制性，不同页面可定制不同骨架屏 ， 方便开发缺点： 不够灵活（产品更新迭代，需要同时修改骨架屏结构）、页面会有白屏时间">
+<meta property="og:type" content="article">
+<meta property="og:title" content="骨架屏的实现方式">
+<meta property="og:url" content="http://yoursite.com/2019/12/23/骨架屏的实现方式/index.html">
+<meta property="og:site_name" content="199">
+<meta property="og:description" content="骨架屏的实现方式 1.vue骨架屏在开发vue项目时，在请求接口数据返回之前，使用一个loading图标表示加载中；进一步可以使用骨架屏代替loading图标，给用户更好的使用体验。 用一个flag标志，来表示请求接口是否已经完成，来控制骨架屏的显示与否。 123优点： 定制性，不同页面可定制不同骨架屏 ， 方便开发缺点： 不够灵活（产品更新迭代，需要同时修改骨架屏结构）、页面会有白屏时间">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-04-08T07:54:03.757Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="骨架屏的实现方式">
+<meta name="twitter:description" content="骨架屏的实现方式 1.vue骨架屏在开发vue项目时，在请求接口数据返回之前，使用一个loading图标表示加载中；进一步可以使用骨架屏代替loading图标，给用户更好的使用体验。 用一个flag标志，来表示请求接口是否已经完成，来控制骨架屏的显示与否。 123优点： 定制性，不同页面可定制不同骨架屏 ， 方便开发缺点： 不够灵活（产品更新迭代，需要同时修改骨架屏结构）、页面会有白屏时间">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/12/23/骨架屏的实现方式/"/>
+
+
+
+
+
+  <title>骨架屏的实现方式 | 199</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">199</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">路漫漫其修远兮，我将上下而求索</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/23/骨架屏的实现方式/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="LqqJohnny">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="199">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">骨架屏的实现方式</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-12-23T11:25:44+00:00">
+                2019-12-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="骨架屏的实现方式"><a href="#骨架屏的实现方式" class="headerlink" title="骨架屏的实现方式"></a>骨架屏的实现方式</h3><hr>
+<h4 id="1-vue骨架屏"><a href="#1-vue骨架屏" class="headerlink" title="1.vue骨架屏"></a>1.vue骨架屏</h4><p>在开发vue项目时，在请求接口数据返回之前，使用一个loading图标表示加载中；进一步可以使用骨架屏代替loading图标，给用户更好的使用体验。</p>
+<p>用一个flag标志，来表示请求接口是否已经完成，来控制骨架屏的显示与否。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">优点： 定制性，不同页面可定制不同骨架屏 ， 方便开发</span><br><span class="line"></span><br><span class="line">缺点： 不够灵活（产品更新迭代，需要同时修改骨架屏结构）、页面会有白屏时间</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h4 id="2-html模板骨架屏"><a href="#2-html模板骨架屏" class="headerlink" title="2.html模板骨架屏"></a>2.html模板骨架屏</h4><p>上面的方法有一个很大的缺点就是页面还是有白屏时间，骨架屏的作用就是为了消除白屏，而上面的方法没有解决这个问题，因为它的骨架屏展现时间是在vue初始化结束后，获取到html之后到vue初始化完成的这一段时间，页面就会显示空白。</p>
+<p>如果直接把骨架屏放在vue项目的 模板文件 index.html 中的 <code>div#app</code> 里面，那浏览器一拿到html ，页面就会出现骨架屏了。</p>
+<p>所以， 我门可以直接写好一个骨架屏的结，放进<code>div#app</code> 对应的style 放进模板文件的 <code>&lt;header&gt;&lt;/header&gt;</code>中，也可以直接放一张图片，让设计小姐姐帮个忙，直接出一个骨架屏的图，放进去就完事儿了。</p>
+<h4 id="3-vue-skeleton-webpack-plugin"><a href="#3-vue-skeleton-webpack-plugin" class="headerlink" title="3.vue-skeleton-webpack-plugin"></a>3.vue-skeleton-webpack-plugin</h4><p>你都用上vue+webpack了， 还要手写html ？咋这么low呢。<br>可不可以骨架屏结构用vue写，然后自动生成index.html呢？</p>
+<p>当然是可以的嘛！</p>
+<p>使用这个包，就可以解决了 ，按照文档和一些教程，一步一步的配置好webpack，然后打包你的骨架屏页面，最后把这个骨架屏插入到模板文件。之后如果骨架屏要修改，则自己手动再运行下命令打包，更新一下index.html 就可以了。</p>
+<p>如果你在开发中，骨架屏的更新频率比较高，你可以把上面的这个步骤直接加入到 webpack.dev.conf.js ，这样在你每次修改骨架屏文件，都会自动修改，不需要额外的打包指令了。</p>
+<h4 id="4-page-skeleton-webpack-plugin"><a href="#4-page-skeleton-webpack-plugin" class="headerlink" title="4.page-skeleton-webpack-plugin"></a>4.page-skeleton-webpack-plugin</h4><p>上面第3个方法已经足够满足咱们的需求了，但接下来这个库就更牛逼了，懒惰真的使人类进步呀。</p>
+<p>假如，产品总是变更，骨架屏改了一版又一版，你是不是要抓狂，掏出了刀想杀人？<br>少年别冲动，老衲传授你一套绝学吧。</p>
+<p>这是一个饿了么开源的库，牛逼在于，你不需要在手写骨架屏了。</p>
+<p>自动生成！</p>
+<p>自动生成！</p>
+<p>自动生成！ </p>
+<p>是的，没错，不要998 不要688 它是免费的，厂家白送。来的早不如来的巧， 现场的每个人都….</p>
+<blockquote>
+<p>走错片场了~~~~<br>321  回来 ！</p>
+</blockquote>
+<p>page-skeleton-webpack-plugin 这个项目文档上有一些demo， 只需要几步配置， 就可以给你的项目加上骨架屏了。用了就忘不了了。</p>
+<p>基本原理和第三种方法是一样的， 它主要的牛逼点在于，自动生成 骨架屏结构。</p>
+<p>它首先把需要骨架屏的页面在puppeteer无头浏览器打开，在node层获取到html结构，把页面的所有dom元素 ，分为 几种类别，如：图片元素，文字元素，块状元素……</p>
+<p>然后不同类型元素有不同的处理方法， 他会在这些元素上增加一些对应的class ，来覆盖原来的dom元素的css，最基本的就是设置一个灰色的背景，color 设置为 transparent , 这样文字就看不到了，只能看到一个灰色，然后给图片元素src设置一个灰色的图片。</p>
+<p>经过一系列骚操作之后， 骨架屏诞生了，然后会生成一个html文件存在项目里，等你 <code>npm run build</code>的时候，他会把刚才生成的html打包进模板文件。这样就完成了。</p>
+<p>而且，他还支持多页面骨架屏，稍微配置一下即可</p>
+<p>需要注意的是，webpack build的时候会自动把index.html 的注释删除，导致在往index.html 插入骨架屏的时候，找不到替换关键词。所以需要在webpack.prod.conf.js改一下配置</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> HtmlWebpackPlugin(&#123;</span><br><span class="line">      filename: config.build.index,</span><br><span class="line">      template: <span class="string">'index.html'</span>,</span><br><span class="line">      inject: <span class="literal">true</span>,</span><br><span class="line">      minify: &#123;</span><br><span class="line">          <span class="comment">// 注释下面这一句</span></span><br><span class="line">        <span class="comment">// removeComments: true,   </span></span><br><span class="line">        collapseWhitespace: <span class="literal">true</span>,</span><br><span class="line">        removeAttributeQuotes: <span class="literal">true</span></span><br><span class="line">        <span class="comment">// more options:</span></span><br><span class="line">        <span class="comment">// https://github.com/kangax/html-minifier#options-quick-reference</span></span><br><span class="line">      &#125;,</span><br></pre></td></tr></table></figure>
+<p>牛逼 ！</p>
+<p>真香 ！</p>
+<p>又get到了一种装逼方法了 ！嘻嘻</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/09/H5新增了那些内容和API/" rel="next" title="H5新增了那些内容和API">
+                <i class="fa fa-chevron-left"></i> H5新增了那些内容和API
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/01/09/测试一下自动部署gitpage/" rel="prev" title="'测试一下自动部署gitpage'">
+                '测试一下自动部署gitpage' <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">LqqJohnny</p>
+              <p class="site-description motion-element" itemprop="description">兔子家的先生</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">49</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">60</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#骨架屏的实现方式"><span class="nav-number">1.</span> <span class="nav-text">骨架屏的实现方式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-vue骨架屏"><span class="nav-number">1.1.</span> <span class="nav-text">1.vue骨架屏</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-html模板骨架屏"><span class="nav-number">1.2.</span> <span class="nav-text">2.html模板骨架屏</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-vue-skeleton-webpack-plugin"><span class="nav-number">1.3.</span> <span class="nav-text">3.vue-skeleton-webpack-plugin</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-page-skeleton-webpack-plugin"><span class="nav-number">1.4.</span> <span class="nav-text">4.page-skeleton-webpack-plugin</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LqqJohnny</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Spring,注解," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="注解，是spring的一大特色，功能十分强大，代码方便快捷。">
+<meta name="keywords" content="Spring,注解">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring一些常用的注解">
+<meta property="og:url" content="http://yoursite.com/2017/10/17/Spring一些常用的注解/index.html">
+<meta property="og:site_name" content="199">
+<meta property="og:description" content="注解，是spring的一大特色，功能十分强大，代码方便快捷。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-04-08T07:54:03.757Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Spring一些常用的注解">
+<meta name="twitter:description" content="注解，是spring的一大特色，功能十分强大，代码方便快捷。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/10/17/Spring一些常用的注解/"/>
+
+
+
+
+
+  <title>Spring一些常用的注解 | 199</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">199</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">路漫漫其修远兮，我将上下而求索</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/17/Spring一些常用的注解/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="LqqJohnny">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="199">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Spring一些常用的注解</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-17T10:45:00+00:00">
+                2017-10-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/后端/" itemprop="url" rel="index">
+                    <span itemprop="name">后端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <!-- deleteAbove -->
+<p>注解，是spring的一大特色，功能十分强大，代码方便快捷。<br><a id="more"></a><br>下面是 spring的 一些常用的注解关键词</p>
+<h4 id="Controller"><a href="#Controller" class="headerlink" title="@Controller"></a>@Controller</h4><p>这个是最基础的 就是把一个 类 设置成一个 <strong>控制器</strong>.</p>
+<h4 id="RestController"><a href="#RestController" class="headerlink" title="@RestController"></a>@RestController</h4><p>和 @Controller    类似，也是定义一个控制器,可以看成是结合了@ResponseBody与@Controller注解的功能。</p>
+<p>这两个定义控制器方式的不同在于 ，两种控制器的返回数据格式不同。<br>Controller 返回的是jsp页面 可以说是String，而 RestController返回的json / xml 等其他格式的数据，RestController 为一些 Restful webservice 提供了便捷 ，能实现只提供数据的接口。</p>
+<blockquote>
+<p>这两个注解一般放在class 前面，对整个class里面的接口生效。</p>
+</blockquote>
+<h4 id="RequestMapping"><a href="#RequestMapping" class="headerlink" title="@RequestMapping"></a>@RequestMapping</h4><p>用来 映射请求路径，不多bb，上例子：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 还可以加其他的参数</span></span><br><span class="line">	<span class="meta">@RequestMapping</span>(value = <span class="string">"/index.htm"</span>, produces = <span class="string">"text/html;charset=UTF-8"</span>)</span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">index</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="string">"jsp/index"</span>;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="PathVariable"><a href="#PathVariable" class="headerlink" title="@PathVariable"></a>@PathVariable</h4><p>从 路径里面取出参数 ，还是上例子比较易懂：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RequestMapping</span>(path=<span class="string">"/test-&#123;id&#125;.htm"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">indexID</span><span class="params">(@PathVariable String id,Model model)</span></span>&#123;</span><br><span class="line">	model.addAttribute(<span class="string">"id"</span>, id);</span><br><span class="line">	<span class="keyword">return</span> <span class="string">"jsp/index"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>当 输入地址<figure class="highlight plain"><figcaption><span>```的时候，加入model的id 值 为 111</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">#### @RequestParam</span><br><span class="line">为接口指定所需的参数 ，默认是必须的参数 ，也可以用参数改为非必须</span><br><span class="line">```java</span><br><span class="line">	@RequestMapping(value=&quot;/param.htm&quot; , method = RequestMethod.GET )</span><br><span class="line">	public String param(</span><br><span class="line">			@RequestParam(value=&quot;id&quot;,required = false) String id ,</span><br><span class="line">			@RequestParam(&quot;name&quot;) String name,</span><br><span class="line">			Model model)&#123;</span><br><span class="line"></span><br><span class="line">		model.addAttribute(&quot;id&quot;, id);</span><br><span class="line">		model.addAttribute(&quot;name&quot;, name);</span><br><span class="line">		return &quot;jsp/index&quot;;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在传参数的时候还有一种特殊情况，如果前端传的参数不确定，或者数量多，一个个的指定非常麻烦 ，这时候就用 Map吧<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">@RequestMapping</span>(value=<span class="string">"/mapParam.htm"</span> , method = RequestMethod.GET )</span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">mapParam</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">		@RequestParam Map&lt;String, String&gt; param,</span></span></span><br><span class="line"><span class="function"><span class="params">		Model model)</span></span>&#123;</span><br><span class="line">	model.addAttribute(<span class="string">"id"</span>, param.get(<span class="string">"id"</span>));</span><br><span class="line">	model.addAttribute(<span class="string">"name"</span>, param.get(<span class="string">"name"</span>));</span><br><span class="line">	<span class="keyword">return</span> <span class="string">"jsp/index"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>随便你传什么参数 ，我只从map里面取我需要的，没有就取到空 ，也不会报错</p>
+<h4 id="SessionAttributes"><a href="#SessionAttributes" class="headerlink" title="@SessionAttributes"></a>@SessionAttributes</h4><p>这个是使用 session来保存数据的，通常的session的用法是通过 HttpSession 的实例来调用addAttribute() 来保存数据的 ，现在有了@SessionAttributes 便可以在类声明之前就指定 那几个字段需要保存到session：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="meta">@SessionAttributes</span>(<span class="string">"id"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">indexController</span> </span>&#123;</span><br><span class="line">    <span class="meta">@RequestMapping</span>(value=<span class="string">"/param.htm"</span> , method = RequestMethod.GET )</span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">param</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">			@RequestParam(value=<span class="string">"id"</span>,required = <span class="keyword">false</span>)</span> String id ,</span></span><br><span class="line"><span class="function">			@<span class="title">RequestParam</span><span class="params">(<span class="string">"name"</span>)</span> String name,</span></span><br><span class="line"><span class="function">			Model model)</span>&#123;</span><br><span class="line"></span><br><span class="line">		model.addAttribute(<span class="string">"id"</span>, id);</span><br><span class="line">		model.addAttribute(<span class="string">"name"</span>, name);</span><br><span class="line">		<span class="keyword">return</span> <span class="string">"jsp/index"</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在这个例子里面， id就被存入了session 而 name则没有被存入。</p>
+<p>使用了 SessionAttributes ，在清除session的时候 就需要使用特定的方法：</p>
+<pre><code>sessionStatus.setComplete();
+</code></pre><p>这个方法只能清除掉 用SessionAttributes 定义过的字段，其他用HttpSession加入session的字段不会被清除。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RequestMapping</span>(value=<span class="string">"/clearSession.htm"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">clearSession</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">		SessionStatus sessionStatus)</span></span>&#123;</span><br><span class="line">	sessionStatus.setComplete();  <span class="comment">//  清除 @sessionAttributes 标记的session属性值</span></span><br><span class="line">	<span class="keyword">return</span> <span class="string">"jsp/session"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="CookieValue"><a href="#CookieValue" class="headerlink" title="@CookieValue"></a>@CookieValue</h4><p>有session 必然就有 Cookie了 ， 这个注解就是用来获取cookie里面的参数值的 ：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RequestMapping</span>(value=<span class="string">"/getCookie.htm"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">getCookie</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">		@CookieValue(<span class="string">"JSESSIONID"</span>)</span> String sessionID</span></span><br><span class="line"><span class="function">		,Model model)</span>&#123;</span><br><span class="line">	model.addAttribute(<span class="string">"id"</span>,sessionID);</span><br><span class="line">	<span class="keyword">return</span> <span class="string">"jsp/index"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="RequestHeader"><a href="#RequestHeader" class="headerlink" title="@RequestHeader"></a>@RequestHeader</h4><p>同上</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RequestMapping</span>(value=<span class="string">"/getReqHead.htm"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">getReqHead</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">		@RequestHeader(<span class="string">"Accept-Encoding"</span>)</span> String encode</span></span><br><span class="line"><span class="function">		,Model model)</span>&#123;</span><br><span class="line">	model.addAttribute(<span class="string">"name"</span>,encode);</span><br><span class="line">	<span class="keyword">return</span> <span class="string">"jsp/index"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>【待补充】</p>
+<blockquote>
+<p>参考</p>
+<ul>
+<li><a href="https://linesh.gitbooks.io/spring-mvc-documentation-linesh-translation/content/publish/21-3/3-defining-@requestmapping-handler-methods.html" target="_blank" rel="noopener">Spring MVC 4.2.4.RELEASE 中文文档 -2.3.3</a></li>
+</ul>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Spring/" rel="tag"># Spring</a>
+          
+            <a href="/tags/注解/" rel="tag"># 注解</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/10/10/虚拟节点VNode/" rel="next" title="虚拟节点VNode">
+                <i class="fa fa-chevron-left"></i> 虚拟节点VNode
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/10/26/js中的浅复制和深复制/" rel="prev" title="js中的浅复制和深复制">
+                js中的浅复制和深复制 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">LqqJohnny</p>
+              <p class="site-description motion-element" itemprop="description">兔子家的先生</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">49</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">60</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Controller"><span class="nav-number">1.</span> <span class="nav-text">@Controller</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#RestController"><span class="nav-number">2.</span> <span class="nav-text">@RestController</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#RequestMapping"><span class="nav-number">3.</span> <span class="nav-text">@RequestMapping</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#PathVariable"><span class="nav-number">4.</span> <span class="nav-text">@PathVariable</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SessionAttributes"><span class="nav-number">5.</span> <span class="nav-text">@SessionAttributes</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CookieValue"><span class="nav-number">6.</span> <span class="nav-text">@CookieValue</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#RequestHeader"><span class="nav-number">7.</span> <span class="nav-text">@RequestHeader</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LqqJohnny</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
